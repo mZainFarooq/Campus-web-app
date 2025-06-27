@@ -1,4 +1,4 @@
-import { dashboardRoutes } from "../routes/routes";
+import { ADMIN_UID, dashboardRoutes } from "../routes/routes";
 
 const AdminSidebarArr = [
   {
@@ -46,10 +46,7 @@ const CompanySidebarArr = [
   {
     type: "simple",
     value: "Admin Profile",
-    link: dashboardRoutes.profilePage.replace(
-      ":id",
-      "RnhFLZHkTKXETk27HKIQwt3f56g2"
-    ),
+    link: dashboardRoutes.profilePage.replace(":id", ADMIN_UID),
   },
   {
     value: "Company Profile",
@@ -77,10 +74,7 @@ const StudentSidebarArr = [
   {
     type: "simple",
     value: "Admin Profile",
-    link: dashboardRoutes.profilePage.replace(
-      ":id",
-      "RnhFLZHkTKXETk27HKIQwt3f56g2"
-    ),
+    link: dashboardRoutes.profilePage.replace(":id", ADMIN_UID),
   },
   {
     type: "simple",

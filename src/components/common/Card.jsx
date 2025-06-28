@@ -36,7 +36,7 @@ const Card = ({ job, link }) => {
         >
           {job.jobTitle?.slice(0, 16) + "..."}
         </h3>
-        <p className="text-text text-sm">{job.companyProfile.companyName}</p>
+        <p className="text-text text-sm">{job?.companyProfile?.companyName}</p>
       </div>
       <div className="text-text text-sm space-y-1 mt-2">
         <p>

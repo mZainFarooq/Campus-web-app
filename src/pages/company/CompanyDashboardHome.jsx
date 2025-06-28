@@ -41,7 +41,6 @@ const CompanyDashboardHome = () => {
                     : "Your profile is 40% complete. Finish it to post jobs!"}
                 </p>
               </div>
-
               <Button
                 value={hasProfile ? "Edit Profile" : "Complete Now"}
                 onClick={() => {
@@ -61,7 +60,7 @@ const CompanyDashboardHome = () => {
           />
         )}
 
-        <div className="bg-primary border border-border rounded-2xl p-6 shadow-md mb-8 flex items-center justify-between">
+        <div className="bg-primary border border-border rounded-2xl p-6 shadow-md mb-8 flex sm:flex-row flex-col sm:items-center justify-between">
           <div>
             <h2 className="text-xl font-semibold text-heading mb-1">
               Ready to hire?
@@ -71,8 +70,9 @@ const CompanyDashboardHome = () => {
             </p>
           </div>
           <Button
-            value="+ Post New Job"
+            value="Post New Job"
             disabled={!user?.isVerified}
+            className="mt-4 sm:mt-0 "
             onClick={() =>
               navigate(dashboardRoutes.companyDashboardRoutes.postJob)
             }

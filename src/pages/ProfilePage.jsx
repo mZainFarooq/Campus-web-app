@@ -326,11 +326,10 @@ const ProfilePage = () => {
               <h3 className="text-heading text-xl font-semibold mb-2">
                 🧑‍💻 About
               </h3>
-              <p className="text-text text-sm leading-relaxed">
+              <p className="text-text text-sm leading-relaxed whitespace-pre-wrap break-words break-all overflow-hidden">
                 {role === "company" ? aboutCompany : aboutMe?.about}
               </p>
             </div>
-
             <div className="bg-primary border border-border p-6 rounded-xl shadow mb-8">
               <h3 className="text-heading text-xl font-semibold mb-2">
                 {role === "company" ? "🎯 Hiring Roles" : "💡 Skills"}
@@ -401,7 +400,9 @@ const ProfilePage = () => {
                     <p className="font-semibold text-heading">
                       Talent Preferences
                     </p>
-                    <p>{talentPreferences}</p>
+                    <p className="text-text text-sm leading-relaxed whitespace-pre-wrap break-words break-all overflow-hidden">
+                      {talentPreferences}
+                    </p>
                   </div>
                 </div>
               </div>

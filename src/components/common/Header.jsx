@@ -11,9 +11,13 @@ const Header = ({ onOpen }) => {
       <header className="bg-primary shadow-gray-200 dark:shadow-gray-700 shadow-sm border-b border-border">
         <div className="mx-auto flex h-16 w-full items-center gap-8 px-4 sm:px-6 lg:px-8">
           {user ? (
-            <h1 className="text-black dark:text-white text-2xl font-bold">
-              Dashboard
-            </h1>
+            <button
+              className="md:hidden text-heading text-2xl"
+              onClick={onOpen}
+              aria-label="Open Sidebar"
+            >
+              <HiMenu />
+            </button>
           ) : (
             <Link to={auth.LandingPage}>
               <div className="flex items-center gap-2">
@@ -79,16 +83,6 @@ const Header = ({ onOpen }) => {
                     </div>
                   )}
                 </div>
-              )}
-
-              {user && (
-                <button
-                  className="md:hidden text-heading text-2xl"
-                  onClick={onOpen}
-                  aria-label="Open Sidebar"
-                >
-                  <HiMenu />
-                </button>
               )}
 
               <ThemeToggler />

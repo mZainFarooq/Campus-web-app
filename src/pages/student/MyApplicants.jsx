@@ -16,11 +16,11 @@ const MyApplicants = () => {
           📄 My Applicants
         </h1>
 
-        {user?.appliedJobs.length === 0 ? (
+        {!user?.appliedJobs || user.appliedJobs.length === 0 ? (
           <p className="text-text">You have not applied to any jobs yet.</p>
         ) : (
           <div className="space-y-6">
-            {user?.appliedJobs.map((job, index) => (
+            {user.appliedJobs.map((job, index) => (
               <div
                 key={index}
                 className="bg-primary border border-border p-5 rounded-xl shadow flex flex-col md:flex-row md:items-center md:justify-between gap-4"
@@ -33,7 +33,6 @@ const MyApplicants = () => {
                     Company:{" "}
                     <span className="font-medium">{job.companyName}</span>
                   </p>
-
                   <p className="text-text text-xs">
                     <span> Applied At:</span>{" "}
                     {formatDistanceToNow(new Date(job.appliedAt), {

@@ -123,6 +123,7 @@ const AdminDashboardHome = () => {
                   const isIncomplete = !student.tagline;
                   return (
                     <div
+                      key={i}
                       className="border border-border p-4 rounded-xl text-text mb-3  flex justify-between
                     "
                     >

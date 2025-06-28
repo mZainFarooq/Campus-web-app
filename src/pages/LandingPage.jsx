@@ -16,7 +16,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <section className="bg-background text-text min-h-screen py-16 ">
+      <section className="bg-background text-text min-h-screen py-16 px-4">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
             <h1 className="text-4xl sm:text-5xl font-bold text-heading leading-tight mb-6">

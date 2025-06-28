@@ -103,6 +103,8 @@ const JobDetailPage = () => {
     );
   };
 
+  console.log(companyProfile);
+
   const isBlockedColors = {
     true: {
       bg: "bg-green-100",
@@ -131,8 +133,8 @@ const JobDetailPage = () => {
       : job.applicants.filter((applicant) => applicant.status === filter);
 
   return (
-    <section className="min-h-screen bg-background px-6 py-10">
-      <div className=" space-y-6">
+    <section className="min-h-screen w-full bg-background px-6 py-10 ">
+      <div className="space-y-6">
         <div className="flex justify-end items-center gap-4">
           <span
             className={` px-3 py-1 text-xs font-semibold rounded-full 
@@ -145,20 +147,22 @@ const JobDetailPage = () => {
           </span>
         </div>
 
-        <div className="flex items-center gap-4 bg-primary p-6 rounded-xl shadow border border-border">
-          <img
-            src={companyProfile?.companyLogo?.profileUrl}
-            alt={companyProfile?.companyName}
-            className="w-16 h-16 object-cover rounded-full border border-border"
-          />
-          <div>
-            <h1 className="text-xl sm:text-2xl font-bold text-heading">
+        <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10 bg-primary border border-border p-6 rounded-2xl shadow mb-10">
+          <div className="w-28 h-28 rounded-full bg-content border border-border overflow-hidden">
+            <img
+              src={companyProfile?.companyLogo?.profileUrl}
+              alt={companyProfile?.companyName}
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          <div className="text-center md:text-left">
+            <h2 className="text-2xl font-bold text-heading">
               {companyProfile?.companyName}
-            </h1>
-            <p className="text-sm text-text">{jobTitle}</p>
+            </h2>
+            <p className="text-text text-sm">{jobTitle}</p>
           </div>
         </div>
-
         <div className="bg-primary p-6 rounded-xl shadow border border-border space-y-2 text-sm text-text">
           <p>
             📍 <span className="font-medium">Location:</span> {location}
@@ -184,25 +188,24 @@ const JobDetailPage = () => {
             })}
           </p>
         </div>
-
-        <div className="bg-primary p-6 rounded-xl shadow border border-border">
-          <h2 className="text-xl font-semibold text-heading mb-2">
+        <div className="bg-primary p-6 rounded-xl w-full shadow border border-border">
+          <h2 className="text-xl font-semibold  text-heading mb-2">
             📝 Job Description
           </h2>
-          <p className="text-sm text-text whitespace-pre-wrap">{description}</p>
+          <p className="text-text text-sm leading-relaxed whitespace-pre-wrap break-words break-all overflow-hidden">
+            {description}
+          </p>
         </div>
-
-        <div className="bg-primary p-6 rounded-xl shadow border border-border">
+        <div className="bg-primary p-6 rounded-xl w-full shadow border border-border break-words overflow-x-auto">
           <h2 className="text-xl font-semibold text-heading mb-2">
             ✅ Requirements
           </h2>
-          <p className="text-sm text-text whitespace-pre-wrap">
+          <p className="text-text text-sm leading-relaxed whitespace-pre-wrap break-words break-all overflow-hidden">
             {requirements}
           </p>
         </div>
-
         {user?.role === "student" && (
-          <div className="flex justify-end w-full ">
+          <div className="flex justify-center sm:justify-end w-full">
             <Button
               disabled={hasApplied}
               value={hasApplied ? "✅ Applied" : "🚀 Apply Now"}
@@ -210,88 +213,93 @@ const JobDetailPage = () => {
             />
           </div>
         )}
-
         {user?.role === "company" && (
-          <div className="flex justify-end gap-2 ">
-            <Button value="Edit Job" onClick={handleEdit} />
-
+          <div className="flex flex-col sm:flex-row  justify-end items-end gap-2 ">
+            <Button
+              value="Edit Job"
+              onClick={handleEdit}
+              className="w-full sm:w-1/2"
+            />
             <Button
               onClick={handleJobToggle}
+              className="w-full sm:w-1/2"
               value={status === "open" ? "Closed Job" : "Open Job"}
             />
           </div>
         )}
-
         {status === "closed" && (
           <p className="text-red-500 text-sm text-center">
             This Job is closed by company!
           </p>
         )}
-      </div>
-      {user?.role === "company" && (
-        <section className="p-6 bg-background min-h-screen">
-          <h1 className="text-2xl font-bold text-heading mb-6">
-            🚀 Applicants List
-          </h1>
+        {user?.role === "company" && (
+          <section className=" bg-background min-h-screen">
+            <h1 className="text-2xl font-bold text-heading mb-6 mt-6">
+              🚀 Applicants List
+            </h1>
 
-          <div className="flex flex-wrap gap-2 py-8">
-            {TabsVal.map((tab) => (
-              <Button
-                key={tab.value}
-                value={tab.label}
-                onClick={() => setFilter(tab.value)}
-                className={`px-4 py-2 text-sm font-semibold ${
-                  filter === tab.value
-                    ? "bg-primary text-heading border-b-2 border-indigo-500"
-                    : "bg-muted text-text hover:bg-muted/80"
-                }`}
-                initalClass={false}
-              />
-            ))}
-          </div>
-          <div className="space-y-4">
-            {filteredApplicants.length === 0 ? (
-              <div className="text-center py-10 text-muted text-sm">
-                {filter === "All"
-                  ? "No applicants found."
-                  : `No ${filter} students found.`}
-              </div>
-            ) : (
-              filteredApplicants.map((applicant, index) => (
-                <div
-                  key={index}
-                  className="cursor-pointer bg-primary p-4 rounded-lg border border-border shadow"
-                >
-                  <div className="text-right">
-                    <span
-                      className={`px-3 py-1 rounded-full text-xs font-medium ${
-                        statusColors[applicant.status]
-                      }`}
-                    >
-                      {applicant.status}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <img
-                      src={applicant.profile.profileUrl}
-                      alt={applicant.name}
-                      className="w-14 h-14 object-cover rounded-full border border-border"
-                    />
-                    <div>
-                      <h2 className="text-lg font-semibold text-heading">
-                        {applicant.name}
-                      </h2>
-                      <p className="text-sm text-text">{applicant.tagLine}</p>
-                      <p className="text-xs text-muted">
-                        Applied:{" "}
-                        {formatDistanceToNow(new Date(applicant.appliedAt), {
-                          addSuffix: true,
-                        })}
-                      </p>
+            <div className="flex flex-wrap gap-2 py-6 justify-center sm:justify-start">
+              {TabsVal.map((tab) => (
+                <Button
+                  key={tab.value}
+                  value={tab.label}
+                  onClick={() => setFilter(tab.value)}
+                  className={`px-4 py-2 text-sm font-semibold ${
+                    filter === tab.value
+                      ? "bg-primary text-heading border-b-2 border-indigo-500"
+                      : "bg-muted text-text hover:bg-muted/80"
+                  }`}
+                  initalClass={false}
+                />
+              ))}
+            </div>
+            <div className="space-y-4">
+              {filteredApplicants.length === 0 ? (
+                <div className="text-center py-10 text-muted text-sm">
+                  {filter === "All"
+                    ? "No applicants found."
+                    : `No ${filter} students found.`}
+                </div>
+              ) : (
+                filteredApplicants.map((applicant, index) => (
+                  <div
+                    key={index}
+                    className="cursor-pointer bg-primary p-4 rounded-lg border border-border shadow space-y-4"
+                  >
+                    {/* Status Badge */}
+                    <div className="flex justify-end">
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs font-medium ${
+                          statusColors[applicant.status]
+                        }`}
+                      >
+                        {applicant.status}
+                      </span>
                     </div>
-                  </div>
-                  <div className="flex justify-between items-end">
-                    <div>
+
+                    {/* Profile Info */}
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                      <img
+                        src={applicant.profile.profileUrl}
+                        alt={applicant.name}
+                        className="w-14 h-14 object-cover rounded-full border border-border"
+                      />
+                      <div>
+                        <h2 className="text-lg font-semibold text-heading">
+                          {applicant.name}
+                        </h2>
+                        <p className="text-sm text-text">{applicant.tagLine}</p>
+                        <p className="text-xs text-muted">
+                          Applied:{" "}
+                          {formatDistanceToNow(new Date(applicant.appliedAt), {
+                            addSuffix: true,
+                          })}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Buttons + View */}
+                    <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
                       <Link
                         to={`${
                           dashboardRoutes.companyDashboardRoutes.root
@@ -299,44 +307,45 @@ const JobDetailPage = () => {
                           ":id",
                           applicant.uid
                         )}`}
-                        className="text-link underline"
+                        className="text-link underline w-fit"
                       >
                         View Profile
                       </Link>
-                    </div>
-                    <div className="flex gap-6">
-                      <Button
-                        value="Hire Student"
-                        disabled={applicant.status === "approved"}
-                        onClick={() =>
-                          handleApplicantStatus(
-                            applicant,
-                            job,
-                            "approved",
-                            setisJobClosed
-                          )
-                        }
-                      />
-                      <Button
-                        value="Reject Student"
-                        disabled={applicant.status === "rejected"}
-                        onClick={() =>
-                          handleApplicantStatus(
-                            applicant,
-                            job,
-                            "rejected",
-                            setisJobClosed
-                          )
-                        }
-                      />
+
+                      <div className="flex flex-col sm:flex-row gap-3 sm:gap-6">
+                        <Button
+                          value="Hire Student"
+                          disabled={applicant.status === "approved"}
+                          onClick={() =>
+                            handleApplicantStatus(
+                              applicant,
+                              job,
+                              "approved",
+                              setisJobClosed
+                            )
+                          }
+                        />
+                        <Button
+                          value="Reject Student"
+                          disabled={applicant.status === "rejected"}
+                          onClick={() =>
+                            handleApplicantStatus(
+                              applicant,
+                              job,
+                              "rejected",
+                              setisJobClosed
+                            )
+                          }
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))
-            )}
-          </div>
-        </section>
-      )}
+                ))
+              )}
+            </div>
+          </section>
+        )}
+      </div>
     </section>
   );
 };

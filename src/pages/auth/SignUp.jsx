@@ -6,7 +6,7 @@ const SignUp = () => {
   const [activeTab, setActiveTab] = useState("student");
 
   return (
-    <div className="bg-background px-4 py-12 flex items-start justify-center">
+    <div className="bg-background  py-12 flex items-start justify-center">
       <div className="w-full max-w-2xl">
         <div className="flex justify-center mb-6 space-x-4">
           <button

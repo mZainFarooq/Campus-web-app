@@ -106,6 +106,14 @@ const SignIn = () => {
             className="w-full"
           />
         </form>
+        <div className="flex justify-center items-center mt-4">
+          <p className="text-sm text-heading">
+            Don’t have an account?{" "}
+            <Link to={auth.signup} className="text-link underline ">
+              Sign up
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -1,11 +1,13 @@
 import { HiMenu } from "react-icons/hi";
 import ThemeToggler from "../ThemeToggler";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { auth } from "../../routes/routes";
 
 const Header = ({ onOpen }) => {
   const user = useSelector((state) => state.user);
+  const location = useLocation();
+  console.log(location);
   return (
     <>
       <header className="bg-primary shadow-gray-200 dark:shadow-gray-700 shadow-sm border-b border-border">
@@ -42,24 +44,8 @@ const Header = ({ onOpen }) => {
 
           <div className={`flex flex-1 items-center justify-end `}>
             <div className="flex items-center gap-4">
-              {!user ? (
+              {user && (
                 <div className="sm:flex sm:gap-4 ">
-                  <Link
-                    to={auth.login}
-                    className="block rounded-md bg-link px-5 py-2.5 text-sm font-medium text-white transition hover:opacity-75"
-                  >
-                    Login
-                  </Link>
-
-                  <Link
-                    to={auth.signup}
-                    className="hidden rounded-md dark:bg-input bg-gray-100 px-5 py-2.5 text-sm font-medium text-link transition hover:opacity-75 sm:block"
-                  >
-                    Register
-                  </Link>
-                </div>
-              ) : (
-                <div>
                   {user?.profile ? (
                     <img
                       src={user?.profile?.profileUrl}
@@ -84,7 +70,6 @@ const Header = ({ onOpen }) => {
                   )}
                 </div>
               )}
-
               <ThemeToggler />
             </div>
           </div>

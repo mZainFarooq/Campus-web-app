@@ -5,6 +5,8 @@ import { handleSignUpwithEmailandPassword } from "../../firebase/authHandling";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import FullScreenLoader from "../../components/FullScreenLoader";
+import { Link } from "react-router-dom";
+import { auth } from "../../routes/routes";
 
 export const CompanySignUp = () => {
   const [loading, setLoading] = useState(false);
@@ -147,6 +149,14 @@ export const CompanySignUp = () => {
             className="w-full"
           />
         </form>
+        <div className="flex justify-center items-center mt-4">
+          <p className="text-sm">
+            Dont have an account?{" "}
+            <Link to={auth.login} className="text-link hover:underline">
+              Sign in
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
